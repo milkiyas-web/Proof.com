@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import CustomFormField from '@/components/CustomFormField';
 import { Form } from './ui/form';
-import { Button } from './ui/button';
+import { Button } from './ui/Button';
  // Adjust import paths as needed
  export enum FormFieldType {
   INPUT = 'input',

@@ -120,6 +120,8 @@ const config = {
         "caret-blink": "caret-blink 1.25s ease-out infinite",
         spotlight: "spotlight 2s ease .75s 1 forwards",
         aurora: "aurora 60s linear infinite",
+        scroll:
+          "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
       },
     },
     

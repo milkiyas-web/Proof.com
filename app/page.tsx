@@ -2,6 +2,8 @@ import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
 import mesh from "./mesh.svg";
+import LogoTicker from "@/components/LogoTicker";
+import Pricing from "@/components/Pricing";
 export default function Home() {
   return (
     <>
@@ -19,6 +21,8 @@ export default function Home() {
         <Navbar /> 
         <div className="container mx-auto">
           <Hero />
+          <LogoTicker />
+          <Pricing />
         </div>
       </div>
     </>
