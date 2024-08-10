@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans as FontSans } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "./provider";
+//import { ThemeProvider } from "./provider";
 import { ClerkProvider } from "@clerk/nextjs";
-import { cn } from "@/lib/utils";
+// import { cn } from "@/lib/utils";
+import {cn} from "@/lib/utils"
 const fontSans = FontSans({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
@@ -27,14 +28,7 @@ export default function RootLayout({
           "min-h-screen  font-sans antialiased",
           fontSans.variable
         )}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
             {children}
-          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
