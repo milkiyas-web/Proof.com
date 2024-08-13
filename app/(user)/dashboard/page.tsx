@@ -108,43 +108,62 @@ import { Plus } from "lucide-react";
 import { createProject } from "@/actions/createProject";
 import { Button } from "@/components/ui/MovingBorders";
 import SubmitButton from "@/components/SubmitProjBtn";
+import { auth } from "@clerk/nextjs/server";
+import { db } from "@/db";
+import { projects } from "@/db/schema";
+import { eq } from "drizzle-orm";
+import NewProjBtn from "@/components/NewProject";
+import ProjectsList from "./ProjectsList";
 
 
 
-const NewProjBtn = () => {
+const Dashboard = async () => {
+  const { userId } = auth();
+  if(!userId) return null;
+  const userProjects = await db.select().from(projects).where(eq(projects.userId, userId));
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button className="rounded-full">
-          <Plus className="w-4 h-4" />New Space</Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] rounded-md">
-        <DialogHeader>
-          <DialogTitle>New Project</DialogTitle>
-          <DialogDescription>
-            Create a new project to get started
-          </DialogDescription>
-        </DialogHeader>
-        <form className="flex gap-4 flex-col" action={createProject}>
-          <div className="grid sm:grid-cols-2 gap-4">
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="name">Name</Label>
-              <Input id="name" name="name" placeholder="Project Name" />
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="url">URL</Label>
-              <Input id="url" name="url" placeholder="https://example.com" />
-            </div>
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="description">Description</Label>
-            <Textarea name="description" id="description" placeholder="Description (optional)" />
-          </div>
-          <SubmitButton />        
-          </form>
-      </DialogContent>
-    </Dialog>
+    // <Dialog>
+    //   <DialogTrigger asChild>
+    //     <Button className="rounded-full">
+    //       <Plus className="w-4 h-4" />New Space</Button>
+    //   </DialogTrigger>
+    //   <DialogContent className="sm:max-w-[425px] rounded-md">
+    //     <DialogHeader>
+    //       <DialogTitle>New Project</DialogTitle>
+    //       <DialogDescription>
+    //         Create a new project to get started
+    //       </DialogDescription>
+    //     </DialogHeader>
+    //     <form className="flex gap-4 flex-col" action={createProject}>
+    //       <div className="grid sm:grid-cols-2 gap-4">
+    //         <div className="flex flex-col gap-2">
+    //           <Label htmlFor="name">Name</Label>
+    //           <Input id="name" name="name" placeholder="Project Name" />
+    //         </div>
+    //         <div className="flex flex-col gap-2">
+    //           <Label htmlFor="url">URL</Label>
+    //           <Input id="url" name="url" placeholder="https://example.com" />
+    //         </div>
+    //       </div>
+    //       <div className="flex flex-col gap-2">
+    //         <Label htmlFor="description">Description</Label>
+    //         <Textarea name="description" id="description" placeholder="Description (optional)" />
+    //       </div>
+    //       <SubmitButton />        
+    //       </form>
+    //   </DialogContent>
+    // </Dialog>
+    <div>
+      <div className="flex items-center justify-center gap-3">
+        <h1 className="text-3xl font-bold text-center my-4">
+          Your projects
+        </h1>
+        <NewProjBtn />
+        
+      </div>
+      <ProjectsList projects={userProjects}/>
+    </div>
   )
 };
 
-export default NewProjBtn;
+export default Dashboard;
