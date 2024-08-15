@@ -15,11 +15,11 @@ export const projectsRelations = relations
 
 export const reviews = pgTable("reviews", {
   id: serial("id").primaryKey(),
-  projectId: varchar("project_id"),
+  projectId: integer("project_id").notNull(),
   review: text("review"),
   customerName: text("customer_name"),
   customerEmail: text("customer_email"),
-  // rating: integer("rating").notNull()
+  rating: integer("rating").notNull()
   
 })
 
