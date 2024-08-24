@@ -13,10 +13,11 @@ export async function createReview(formData: FormData) {
         review: formData.get("review") as string,
         rating: parseInt(formData.get("rating") as string, 10)
     }
-    const [newReview] = await db.insert(reviews).values(review).returning({ reviewId: reviews.id })
+    const [newReview] = await db.insert(reviews).values(review).returning({ id: reviews.id })
     console.log(newReview);
+    alert("Review created successfully. Thank you for your feedback!");
     //redirect(`/projects/${newProject.insertedId}/instructions`);
     return new Response(JSON.stringify(newReview), { status: 200 });
-    
-}   
+
+}
 
